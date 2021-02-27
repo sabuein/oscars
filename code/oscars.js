@@ -94,12 +94,16 @@ function generateData() {
     xhttp.send();
 }
 
+/*
+// with DOM
 try {
-    window.onload = () => {
+    document.ready(function() {
         //var data = new loadDoc();
         //console.log(data);
         //console.log(data.length);
         // getting the data in order to search results and create options
+
+        
         document.getElementById("toggle-dark-mode").onclick = darkMode;
         document.getElementById("marhaba").onclick = notPossible;
         document.getElementById("clear-all").onclick = clearAll;
@@ -113,11 +117,41 @@ try {
             console.log(y);
             generateTableTwo(y);
         }
-
         //Creating new options on change
         //document.getElementById("select-year").onchange = selectYear(data);
-    };
-} catch (e) { console.log(e); }
+    }; catch (e) { console.log(e); }
+*/
+
+// with jQuery
+try {
+    $().ready(function() {
+        var output;
+        $.getJSON( "./json/oscars.json", function(data) {
+        console.log(data);
+        //$("#text").html(data["text"]);
+        output = data;
+        console.log(output);
+    });
+        //
+        $("toggle-dark-mode").onclick = darkMode;
+        $("marhaba").onclick = notPossible;
+        $("clear-all").onclick = clearAll;
+        $("search-all-one").onclick = = () => {
+            const x = new getData();
+            console.log(x);
+            generateTableOne(x);
+        }
+        $("search-all-two").onclick = = () => {
+            const x = new getData();
+            console.log(x);
+            generateTableTwo(x);
+        }
+        $("select-year").onchange = = () => {
+            const x = new getData();
+            console.log(x);
+            selectYear(x);
+        }
+});}; catch (e) {console.log(e);};
 
 
 
@@ -131,8 +165,8 @@ function getData() {
     request.send();
     request.onload = function () {
         //const flow = request.response;
-        var myObj = JSON.parse(request.response)
-        console.log(myObj);
+        var output = JSON.parse(request.response)
+        console.log(output);
         // console.log(flow.length);
         // console.log(theTable.domContentLoadedEventEnd - theTable.domContentLoadedEventStart);
         //data = flow;
