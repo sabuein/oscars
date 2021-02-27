@@ -90,7 +90,7 @@ function generateData() {
         }
     return output;
     };
-    xhttp.open("GET", "./json/oscars.json", true);
+    xhttp.open("GET", "https://github.com/sabuein/oscars/tree/main/json/oscars.json", true);
     xhttp.send();
 }
 
@@ -126,7 +126,7 @@ try {
 try {
     $().ready(function() {
         var output;
-        $.getJSON( "./json/oscars.json", function(data) {
+        $.getJSON( "https://github.com/sabuein/oscars/tree/main/json/oscars.json", function(data) {
         console.log(data);
         //$("#text").html(data["text"]);
         output = data;
