@@ -136,22 +136,9 @@ try {
         $("toggle-dark-mode").onclick = darkMode;
         $("marhaba").onclick = notPossible;
         $("clear-all").onclick = clearAll;
-        $("search-all-one").onclick = () => {
-            const x = new getData();
-            console.log(x);
-            generateTableOne(x);
-        }
-        $("search-all-two").onclick = () => {
-            const x = new getData();
-            console.log(x);
-            generateTableTwo(x);
-        }
-        $("select-year").onchange = () => {
-            const x = new getData();
-            console.log(x);
-            selectYear(x);
-        }
-
+        $("search-all-one").onclick = () => generateTableOne(output);
+        $("search-all-two").onclick = () => generateTableTwo(output);
+        $("select-year").onchange = () => selectYear(output);
 
     //
 
@@ -161,7 +148,7 @@ try {
 //This one works
 function getData() {
     let jsonURL, request;
-    jsonURL = "https://raw.githubusercontent.com/sabuein/oscars/main/json/oscars.json";
+    jsonURL = "./json/oscars.json";
     request = new XMLHttpRequest();
     request.open("GET", jsonURL);
     request.responseType = "json";
