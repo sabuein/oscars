@@ -124,6 +124,7 @@ try {
 
 // with jQuery
 try {
+
     $().ready(function() {
         var output;
         $.getJSON("./json/oscars.json", function(data) {
@@ -151,7 +152,8 @@ try {
             console.log(x);
             selectYear(x);
         }
-});} catch (e) {console.log(e);};
+});
+} catch (e) {console.log(e)}
 
 
 
