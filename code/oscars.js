@@ -84,7 +84,7 @@ function generateData() {
     xhttp.responseType = "json";
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            output = JSON.parse(this.response, );
+            output = this.response;
             console.log(output);
             //this.responseText;
         }
@@ -125,7 +125,7 @@ try {
 // with jQuery
 try {
     $().ready(function() {
-        var output;
+        const output;
         $.getJSON("./json/oscars.json", function(data) {
             console.log(data);
             //$("#text").html(data["text"]);
