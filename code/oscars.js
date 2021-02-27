@@ -90,7 +90,7 @@ function generateData() {
         }
     return output;
     };
-    xhttp.open("GET", "https://github.com/sabuein/oscars/tree/main/json/oscars.json", true);
+    xhttp.open("GET", "https://raw.githubusercontent.com/sabuein/oscars/main/json/oscars.json", true);
     xhttp.send();
 }
 
@@ -126,7 +126,7 @@ try {
 try {
     $().ready(function() {
         var output;
-        $.getJSON( "https://github.com/sabuein/oscars/tree/main/json/oscars.json", function(data) {
+        $.getJSON("https://raw.githubusercontent.com/sabuein/oscars/main/json/oscars.json", function(data) {
         console.log(data);
         //$("#text").html(data["text"]);
         output = data;
@@ -158,7 +158,7 @@ try {
 //This one works
 function getData() {
     let jsonURL, request;
-    jsonURL = "./json/oscars.json";
+    jsonURL = "https://raw.githubusercontent.com/sabuein/oscars/main/json/oscars.json";
     request = new XMLHttpRequest();
     request.open("GET", jsonURL);
     request.responseType = "json";
