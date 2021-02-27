@@ -126,7 +126,7 @@ try {
 // $(window).load(function() {});   >>> should be changed to >>>    $(window).on('load', function (e) {})
 try {
     $(window).on("load", function() {
-        const output;
+        var output;
         $.getJSON("./json/oscars.json", function(data) {
             console.log(data);
             //$("#text").html(data["text"]);
