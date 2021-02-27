@@ -123,22 +123,23 @@ try {
 */
 
 // with jQuery
+// $(window).load(function() {});   >>> should be changed to >>>    $(window).on('load', function (e) {})
 try {
-    $().ready(function() {
+    $(window).on("load", function() {
         const output;
         $.getJSON("./json/oscars.json", function(data) {
             console.log(data);
             //$("#text").html(data["text"]);
             output = data;
             console.log(output);
-        });
+        })};
 
-        $("toggle-dark-mode").onclick = darkMode;
-        $("marhaba").onclick = notPossible;
-        $("clear-all").onclick = clearAll;
-        $("search-all-one").onclick = () => generateTableOne(output);
-        $("search-all-two").onclick = () => generateTableTwo(output);
-        $("select-year").onchange = () => selectYear(output);
+        $("toggle-dark-mode").on("click", darkMode);
+        $("marhaba").on("click", notPossible);
+        $("clear-all").on("click", clearAll);
+        $("search-all-one").on("click", generateTableOne(output));
+        $("search-all-two").on("click", generateTableTwo(output));
+        $("select-year").on("change", selectYear(output));
 
     //
 
