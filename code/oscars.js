@@ -90,7 +90,7 @@ function generateData() {
         }
     return output;
     };
-    xhttp.open("GET", "https://titan.dcs.bbk.ac.uk/~sabuei01/cw1/oscars.json", true);
+    xhttp.open("GET", "./json/oscars.json", true);
     xhttp.send();
 }
 
@@ -124,7 +124,7 @@ try {
 //This one works
 function getData() {
     let jsonURL, request;
-    jsonURL = "https://titan.dcs.bbk.ac.uk/~sabuei01/cw1/oscars.json";
+    jsonURL = "./json/oscars.json";
     request = new XMLHttpRequest();
     request.open("GET", jsonURL);
     request.responseType = "json";
