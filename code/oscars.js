@@ -151,7 +151,7 @@ try {
             console.log(x);
             selectYear(x);
         }
-});}; catch (e) {console.log(e);};
+});} catch (e) {console.log(e);};
 
 
 
