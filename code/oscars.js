@@ -132,7 +132,7 @@ try {
             //$("#text").html(data["text"]);
             output = data;
             console.log(output);
-        })};
+        })});
 
         $("toggle-dark-mode").on("click", darkMode);
         $("marhaba").on("click", notPossible);
