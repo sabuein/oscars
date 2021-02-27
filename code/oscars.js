@@ -124,16 +124,15 @@ try {
 
 // with jQuery
 try {
-
     $().ready(function() {
         var output;
         $.getJSON("./json/oscars.json", function(data) {
-        console.log(data);
-        //$("#text").html(data["text"]);
-        output = data;
-        console.log(output);
-    });
-        //
+            console.log(data);
+            //$("#text").html(data["text"]);
+            output = data;
+            console.log(output);
+        });
+
         $("toggle-dark-mode").onclick = darkMode;
         $("marhaba").onclick = notPossible;
         $("clear-all").onclick = clearAll;
@@ -152,10 +151,12 @@ try {
             console.log(x);
             selectYear(x);
         }
-});
+
+
+    //
+
+    }
 } catch (e) {console.log(e)}
-
-
 
 //This one works
 function getData() {
