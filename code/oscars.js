@@ -136,17 +136,17 @@ try {
         $("toggle-dark-mode").onclick = darkMode;
         $("marhaba").onclick = notPossible;
         $("clear-all").onclick = clearAll;
-        $("search-all-one").onclick = = () => {
+        $("search-all-one").onclick = () => {
             const x = new getData();
             console.log(x);
             generateTableOne(x);
         }
-        $("search-all-two").onclick = = () => {
+        $("search-all-two").onclick = () => {
             const x = new getData();
             console.log(x);
             generateTableTwo(x);
         }
-        $("select-year").onchange = = () => {
+        $("select-year").onchange = () => {
             const x = new getData();
             console.log(x);
             selectYear(x);
