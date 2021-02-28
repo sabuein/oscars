@@ -21,27 +21,82 @@
     <!--Adding some CSS to the document-->
     <style>
         body {
-            /* padding-left: 25px;
-            padding-right: 25px; */
             background-color: #e2e2e2;
-            color: black;
+            color: #212121;
             font-family: sans-serif;
-            font-size: 12px;
-            margin: auto;
-            padding: 30px;
-            width: 700px;
-            margin: 2px;
-            align-items: center;
+            font-size: 14px;
+            width: 100%;
+            margin: 0;
         }
 
-        div.clear-results {
+        .header-container {
+            position: fixed;
+            top: 0;
+            z-index: 1;
+            width: 100%;
+            background-color: #f1f1f1;
+        }
+
+        .header-container h1 {
+            text-align: center;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #ccc;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #0a84ff;
+            width: 0%;
+        }
+
+        .content {
+            padding: 100px 0;
+            margin: 50px auto 0 auto;
+            width: 100%;
+        }
+
+        input[type=text],
+        
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            /*display: block;*/
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4e4e51;
+            color: #fff;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            color: #000;
+            background-color: #b1b1b3;;
+        }
+
+        /*<div id="clear-results">*/
+        div#clear-results {
             height: 10em;
             position: relative;
         }
 
+        /*<element class="enable-black">*/
         .enable-black {
-            background-color: black;
-            color: white;
+            background-color: #0c0c0d;
+            color: #b3b3b3;
         }
 
         /* Adding an icon to external links*/
@@ -59,14 +114,14 @@
         }
 
         input[type="text"]:enabled {
-            background: #fff;
+            background: #e7dea4;
         }
 
         table {
             border: 2px solid #555;
             border-collapse: collapse;
             font: 16px "Lucida Grande", "Helvetica", "Arial", sans-serif;
-            width: 100%;
+            max-width: 100%;
         }
 
         th,
@@ -99,99 +154,125 @@
 
 <body>
     <!--Page header => Navigation menu (ul and ol) and heading text-->
+    
     <header>
-        <nav>
-            <ul>
-                <li>
-                    <a href="https://sabuein.github.io/oscars/" title="Reload this page">This page</a>
-                </li>
-                <!--Note: When using target, consider adding rel="noreferrer" to avoid exploitation of the window.opener API.
-                    Note: Linking to another page using target="_blank" will run the new page on the same process as your page.
-                    If the new page is executing expensive JS, your page's performance may suffer. To avoid this use rel="noopener".-->
-                <li>
-                    <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/cw1-2021.html"
-                        title="Coursework for Internet and Web Technologies module 2020-21" target="_blank"
-                        rel="noopener noreferrer">Homework 1</a>
-                </li>
-                <li>
-                    <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/oscars.json"
-                        title="The JSON document we will be working with" target="_blank"
-                        rel="noopener noreferrer">JSON</a>
-                    <ol>
-                        <strong>Resources:</strong>
-                        <li>
-                            <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/client/client.html"
-                                title="Techniques discussed in the Client-side processing part of the course"
-                                target="_blank" rel="noopener noreferrer">Client-Side Processing</a>
-                        </li>
-                        <li>
-                            <a href="https://api.jquery.com/" title="jQuery API Documentation" target="_blank"
-                                rel="noopener noreferrer">jQuery API</a>
-                        </li>
-                    </ol>
-                </li>
-            </ul>
-            <button type="button" id="toggle-dark-mode">Toggle dark mode</button>
-            <button type="button" id="marhaba">Marhaba</button>
-        </nav>
-        <h1>Search the Oscars&#33; &raquo; 1960 - 2010</h1>
+        <div class="header-container">
+            <h1>Search the Oscars&#33; &raquo; 1960 - 2010</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="https://sabuein.github.io/oscars/" title="Reload this page">This page</a>
+                    </li>
+                    <!--Note: When using target, consider adding rel="noreferrer" to avoid exploitation of the window.opener API.
+                        Note: Linking to another page using target="_blank" will run the new page on the same process as your page.
+                        If the new page is executing expensive JS, your page's performance may suffer. To avoid this use rel="noopener".-->
+                    <li>
+                        <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/cw1-2021.html"
+                            title="Coursework for Internet and Web Technologies module 2020-21" target="_blank"
+                            rel="noopener noreferrer">Homework 1</a>
+                    </li>
+                    <li>
+                        <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/oscars.json"
+                            title="The JSON document we will be working with" target="_blank"
+                            rel="noopener noreferrer">JSON</a>
+                        <ol>
+                            <strong>Resources:</strong>
+                            <li>
+                                <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/client/client.html"
+                                    title="Techniques discussed in the Client-side processing part of the course"
+                                    target="_blank" rel="noopener noreferrer">Client-Side Processing</a>
+                            </li>
+                            <li>
+                                <a href="https://api.jquery.com/" title="jQuery API Documentation" target="_blank"
+                                    rel="noopener noreferrer">jQuery API</a>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+                <button type="button" id="toggle-dark-mode">Toggle dark mode</button>
+                <button type="button" id="marhaba">Marhaba</button>
+            </nav>
+            <div class="progress-container"></div>
+            <div class="progress-bar" id="myBar"></div>
+        </div>
     </header>
-
-    <!--Search section-->
-    <section id="search-section">
-        <header>
-            <h1>Choose search criteria:</h1>
-        </header>
-        <form id="search-form">
-            <label for="year">Year:</label>
-            <input id="year" name="year" type="text" /><br />
-            <label for="category">Category:</label>
-            <input id="category" name="category" type="text" /><br />
-            <label for="nominee">Nominee:</label>
-            <input id="nominee" name="nominee" type="text" /><br />
-            <label for="info">Info:</label>
-            <input id="info" name="info" type="text" /><br />
-            <!--The input value can appear in either the Nominee or Info elements.
-                    If a user enters a value in this box, 
-                    they should not enter a value in either the nominee or info boxes; 
-                    if they do, an error should be produced, warning them of this.-->
-            <label for="nominee-info">Nominee/info:</label>
-            <input id="nominee-info" name="nominee-info" type="text" /><br />
-            <!--The user is able to specify that they want all nominations, only those that won, or only those that did not win.
-                This is probably best specified using a select element.-->
-            <div>
-                <input type="radio" name="feature-one" id="all-nominations" value="all-nominations" />
-                <label for="all-nominations">All-nominations</label>
-                <input type="radio" name="feature-one" id="those-who-won" value="those-who-won" />
-                <label for="those-who-won">Only those that won</label>
-                <input type="radio" name="feature-one" id="did-not-win" value="did-not-win" />
-                <label for="did-not-win">Only those that did not win</label>
+    
+    <div id="content">
+        <section>
+            <div id="extra-stuff">
+                <form id="post-service">
+                    <label for="fname">First name:</label>
+                    <input id="fname" name="fname" type="text" /><br />
+                    <label for="lname">Last name:</label>
+                    <input id="lname" name="lname" type="text" /><br />
+                    <label for="email">E-mail:</label>
+                    <input id="email" name="email" type="email" /><br />
+                    <input type="submit" id="email-me" value="Email me" />
+                </form>
             </div>
-            <!--There should be a select element for the user to choose the exact year value, e.g., "2010 (83rd)".
-                    The options for this element should be obtained from the JSON file programmatically.
-                    The first option should be "None", corresponding to no selection having being made,
-                    and each year value in the file should appear only once in the option list.
-                    If the user enters both a value in the text box for year (as in 3 above) and selects an option other than "None" here,
-                    an error should be produced, stating that only one or the other can be chosen.-->
-            <label for="select-year">Select a year:</label>
-            <select id="select-year" name="select-year">
-                <option value="none" selected>None</option>
-            </select>
-            <!--Action buttons-->
-            <div>
-                <input type="submit" id="search-all-one" value="Search&#35;1" />
-                <input type="submit" id="search-all-two" value="Search&#35;2" />
-                <!--<input type="submit" id="clear-all" value="Clear">-->
-                <input type="button" id="clear-all" value="Clear"
-                    title="Clear the form and the results table findings with JS!" />
-                <input type="reset" value="Reset" title="The old school form reset button!" />
-            </div>
-        </form>
-    </section>
 
-    <section id="results-section">
-        <!--Some magic happens here!-->
-    </section>
+        </section>
+
+        <!--Search section-->
+
+        <section id="search-section">
+            <header>
+                <h1>Choose search criteria:</h1>
+            </header>
+            <form id="search-form" action="" autocomplete="off">
+                <label for="year">Year:</label>
+                <input id="year" name="year" type="text" /><br />
+                <label for="category">Category:</label>
+                <input id="category" name="category" type="text" /><br />
+                <label for="nominee">Nominee:</label>
+                <input id="nominee" name="nominee" type="text" /><br />
+                <label for="info">Info:</label>
+                <input id="info" name="info" type="text" /><br />
+                <!--The input value can appear in either the Nominee or Info elements.
+                            If a user enters a value in this box, 
+                            they should not enter a value in either the nominee or info boxes; 
+                            if they do, an error should be produced, warning them of this.-->
+                <label for="nominee-info">Nominee/info:</label>
+                <input id="nominee-info" name="nominee-info" type="text" /><br />
+                <!--The user is able to specify that they want all nominations, only those that won, or only those that did not win.
+                        This is probably best specified using a select element.-->
+                <div>
+                    <input type="radio" name="feature-one" id="all-nominations" value="all-nominations" />
+                    <label for="all-nominations">All-nominations</label>
+                    <input type="radio" name="feature-one" id="those-who-won" value="those-who-won" />
+                    <label for="those-who-won">Only those that won</label>
+                    <input type="radio" name="feature-one" id="did-not-win" value="did-not-win" />
+                    <label for="did-not-win">Only those that did not win</label>
+                </div>
+                <!--There should be a select element for the user to choose the exact year value, e.g., "2010 (83rd)".
+                            The options for this element should be obtained from the JSON file programmatically.
+                            The first option should be "None", corresponding to no selection having being made,
+                            and each year value in the file should appear only once in the option list.
+                            If the user enters both a value in the text box for year (as in 3 above) and selects an option other than "None" here,
+                            an error should be produced, stating that only one or the other can be chosen.-->
+                <label for="select-year">Select a year:</label>
+                <select id="select-year" name="select-year">
+                    <option value="none" selected>None</option>
+                </select>
+                <!--Action buttons-->
+                <div>
+                    <input type="submit" id="search-all-one" value="Search&#35;1" />
+                    <input type="submit" id="search-all-two" value="Search&#35;2" />
+                    <!--<input type="submit" id="clear-all" value="Clear">-->
+                    <input type="button" id="clear-all" value="Everything"
+                        title="Clear the form and the results table findings with JS&#33;" />
+                    <input type="button" id="table-only" value="Table Only" title="Clear results section only&#33;" />
+                    <input type="reset" value="Reset" title="The old school form reset button&#33;" />
+                </div>
+            </form>
+        </section>
+
+        <section id="results-section">
+            <!--Some magic happens here!-->
+        </section>
+    </div>
+
+
 
     <!--Page footer-->
     <footer>
@@ -203,7 +284,7 @@
             and made possible with
             <a href="https://www.dcs.bbk.ac.uk/~ptw/" title="Peter Wood's Home Page" target="_blank"
                 rel="noopener noreferrer">Peter Wood&apos;s</a>
-            support &amp; guidance.
+            support &amp; guidance. And of course, <a href="https://www.google.co.uk/" title="Google!" target="_blank">Mr. Google</a>.
         </address>
     </footer>
 </body>

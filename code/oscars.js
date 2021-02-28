@@ -1,37 +1,108 @@
 /**
  * @author Salaheddin AbuEin
  * I confirm that this coursework submission is entirely my own work, except where explicitly stated otherwise.
- *
- * Year: contains both the calendar year and the number of years since the start of the awards (e.g., "1960 (33rd)").
- * Category: contains values such as "Best Picture" or "Actress -- Leading Role".
- * Nominee: either a person (e.g., for the category "Actress -- Leading Role") or a film (e.g., for "Best Picture").
- * Info: contains varying information. For example, when the category is "Actress -- Leading Role", this contains the name of the film and the character played by the actress in it.
- * Won: has value "yes" if the nominee won the Academy Award, and "no" if not.
- *
- **/
+ */
 
-function search() {
-    let option = $selectedYear.selectedOptions;
-    console.log(option[0].value);
-    //TO-DO
+
+/* Classes
+
+var person = {
+    firstName: "Salaheddin",
+    lastName: "AbuEin"
+};
+
+Object.defineProperty(person, "fullName", {
+    get: function() {
+        return firstName + " " + lastName;
+    },
+    set: function(name) {
+        var words = name.split(" ");
+        this.firstName = words[0] || '';
+        this.lastName = words[1] || '';
+    }
+
+});
+
+Object.defineProperty(person, "age", {
+    value: 42,
+    writable: true
+});
+
+*/
+
+function scroll() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    document.getElementById("myBar").style.width = scrolled + "%";
+}
+
+function turnAuto() {
+    // This will set the form auto-complete to on
+    document.getElementById("search-form").autocomplete = "on";
+}
+
+function bismAllah(data) {
+
+    // TO-CONTINUE-DEVELOPING
+
+    /**
+     * Know what are the object's attributes
+     * For more: https://tc39.es/ecma262/#sec-object.keys
+     * console.log(Object.keys(data));
+     * for (var [key, value] of data) {
+     * console.log(key, value);
+     *
+     */
+
+    // Printing submit values in pairs to the console
+    for (var pair of data.entries()) {
+        console.log(">>> " + pair[0] + ": " + pair[1]);
+    }
+
+    // submit the data via XHR
+    //var request = new XMLHttpRequest();
+    //request.open("POST", "/formHandler");
+    //request.send(data);
+
+    /**
+     * Search criteria:
+     * Year: contains both the calendar year and the number of years since the start of the awards (e.g., "1960 (33rd)").
+     * Category: contains values such as "Best Picture" or "Actress -- Leading Role".
+     * Nominee: either a person (e.g., for the category "Actress -- Leading Role") or a film (e.g., for "Best Picture").
+     * Info: contains varying information. For example, when the category is "Actress -- Leading Role", this contains the name of the film and the character played by the actress in it.
+     * Won: has value "yes" if the nominee won the Academy Award, and "no" if not.
+     */
+
+    /*2010 (83rd)
+    Animated Feature Film
+    Toy Story 3
+    Lee Unkrich
+    ---
+    yes*/
+
+    var noIdea = 0;
+    console.log(noIdea);
+
 }
 
 function autoYallah(times) {
     // Automating the process of fetching results using the two methods
-    // while seeing notes on the console
+    // and comparing results with output to the console
     let i = 0;
     do {
         generateTableOne();
         generateTableTwo();
+        //console.log(true?generateTableTwo.time)
         i++;
     } while (i < times);
 
     finishThem();
 
     /* A bug is here!
-        This needs enhancment;
-        if automated table resutls were generated using autoYallah(times) method; then, the results will stay displayed.
-        */
+          This needs enhancment;
+          if automated table resutls were generated using autoYallah(times) method; then, the results will stay displayed.
+          */
 }
 
 function hasTable() {
@@ -46,17 +117,52 @@ function notPossible() {
 
 function darkMode() {
     var x = document.body.classList;
-
-    console.log("The current body class is: ", x.value);
-
-    /*if (typeof x != "undefined") {
-          alert("Hi");
-      }*/
-    /*if (x) {
-          alert("Hi 2");
-      }*/
+    console.log("The current body class is: " + x.value);
     if (x.value == "") document.body.classList.toggle("enable-black");
     else document.body.removeAttribute("class");
+
+    var y = document.getElementsByTagName("input");
+    console.log(Object.values(y));
+    /*if (y.value == "") {
+        y.classList.toggle("enable-black");
+    } else {y.removeAttribute("class")};*/
+
+    /*var y = document.getElementById("search-form");
+    
+    console.log(y.classList);
+    console.log(y.classList.value);
+    // nested ternary operators
+    // var variable = (condition) ? (true block) : ((condition2) ? (true block2) : (else block2))
+
+    // console.log((y.classList!=null)?("The current form class is: ", y.value):"Sorry");
+    console.log((y.value==""))?(y.toggle("enable-black")):(y.removeAttribute("class"));
+
+
+*/
+
+    /*if (typeof x != "undefined") {
+            alert("Hi");
+        }*/
+    /*if (x) {
+            alert("Hi 2");
+        }*/
+
+}
+
+function clearTable() {
+    var table;
+
+    table = document.evaluate(
+        "//*[@id='results-table']",
+        document.body,
+        null,
+        XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+        null
+    );
+
+    for (let i = 0; i < table.snapshotLength; i++) {
+        table.snapshotItem(i).remove();
+    }
 }
 
 function finishThem() {
@@ -70,19 +176,20 @@ function finishThem() {
         XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
         null
     );
-    console.log(tables);
+
+    // console.log(tables);
     /*table = tables.iterateNext();
-      while (table) {
-          table.remove();
-          tables.text = "";
-          table = tables.iterateNext();
-          
-      }*/
+        while (table) {
+            table.remove();
+            tables.text = "";
+            table = tables.iterateNext();
+            
+        }*/
 
     for (let i = 0; i < tables.snapshotLength; i++) {
         tables.snapshotItem(i).remove();
     }
-    console.log(tables);
+    // console.log(tables);
 
     // Clearing the form items
     $("#search-form").find("input[type=text]").val("");
@@ -101,9 +208,11 @@ function finishThem() {
 }
 
 function generateTableOne() {
+    
     if (!hasTable()) {
+        this.generateTableOne.time = "";
         $results.innerHTML = "";
-        var table, rowX, title, titles, start, end, time, caption;
+        var table, rowX, title, titles, start, end, caption;
         start = new Date().getTime();
         table = document.createElement("table");
         table.setAttribute("id", "results-table");
@@ -126,17 +235,16 @@ function generateTableOne() {
             caption = table.createCaption();
             end = new Date().getTime();
             // divide the time value by 1000 to get seconds About 3,690 results (0.36 seconds)
-            time = (end - start) / 1000;
+            generateTableOne.time = (end - start) / 1000;
             caption.innerHTML =
-                "About " + data.length + " results (" + time + " seconds)";
+                "Found " + data.length + " results (About " + generateTableOne.time + " seconds)";
             console.log(caption.innerHTML);
             $results.appendChild(table);
+            
         });
-    } else {
-        alert(
-            "Kindly clear the current results table in order to regenerate new one!"
-        );
-    }
+    } else {alert("Kindly clear the current results table in order to regenerate new one!");}
+
+    console.log("Marhaba: " + generateTableOne.time);
 }
 
 function generateTableTwo() {
@@ -182,7 +290,7 @@ function generateTableTwo() {
             // divide the time value by 1000 to get seconds About 3,690 results (0.36 seconds)
             time = (end - start) / 1000;
             caption.innerHTML =
-                "About " + data.length + " results (" + time + " seconds)";
+                "Found " + data.length + " results (About " + time + " seconds)";
             console.log(caption.innerHTML);
             $results.appendChild(table);
         });
@@ -230,11 +338,14 @@ try {
         //$(document).on("ready", function () {
         // jQuery event that is fired when DOM is loaded, so it’s fired when the document structure is ready
         /*$.getJSON("./json/oscars.json", function (data) {
-                console.log(data);
-                //$("#text").html(data["text"]);
-                const result = data;
-                return result;
-            });*/
+                    console.log(data);
+                    //$("#text").html(data["text"]);
+                    const result = data;
+                    return result;
+                });*/
+
+        // When the user scrolls the page, execute myFunction 
+        window.onscroll = function() {scroll()};
 
         $results = document.getElementById("results-section");
         $table = document.getElementById("results-table");
@@ -243,7 +354,7 @@ try {
 
         // grab reference to form
         $formElem = document.getElementById("search-form");
-        console.log($formElem);
+        // console.log("Form elemnt: " + $formElem);
 
         // submit handler
         $formElem.addEventListener(
@@ -262,54 +373,91 @@ try {
         // formdata handler to retrieve data
         $formElem.addEventListener("formdata", (e) => {
             console.log("formdata fired");
+
             // Get the form data from the event object
-            let data = e.formData;
-            for (var value of data.values()) {
-                console.log(value);
-            }
-            // submit the data via XHR
-            /*var request = new XMLHttpRequest();
-                  request.open("POST", "/formHandler");
-                  request.send(data);*/
+            let hit = e.formData;
+
+            // Go to search
+            bismAllah(hit);
         });
+
+        /*
+        
+        // Building objects
+
+        const o = {a: 0};
+        
+        Object.defineProperty(o, 'b', {
+            set: function(x) {
+                this.a = x / 2;
+            }
+        });
+        
+        o.b = 10;
+        //  Runs the setter, which assigns 10 / 2 (5) to the 'a' property
+        
+        console.log(o.a);
+        //  5
+
+        class Example {
+            constructor() {
+                const proto = Object.getPrototypeOf(this);
+                console.log(Object.getOwnPropertyNames(proto));
+            }
+            first(){let india = 5;}
+            second(){let babel = 3;}
+            static third(){let china = 9}
+        }
+        
+        var x = new Example(); // ['constructor', 'first', 'second']
+
+        console.log(x);
+
+        */
 
         $("#toggle-dark-mode").on("click", darkMode);
         $("#marhaba").on("click", notPossible);
         $("#clear-all").on("click", finishThem);
         $("#search-all-one").on("click", generateTableOne);
         $("#search-all-two").on("click", generateTableTwo);
+        $("#table-only").on("click", clearTable);
         //$("form").on("click", "select", function() {
-        $selectedYear.addEventListener(
-            "click",
-            generateList
-        ); /* {
-            $(this).empty();
-            $(this).after(generateList);
-        });*/
+        //$(selectedYear).addEventListener("click", generateList);
+
+        $("#select-year").one("click mouseover", function (event) {
+            generateList(this);
+            $(this).off(console.log("The " + generateList.type + " event happened!"));
+        });
+
+        /* {
+                $(this).empty();
+                $(this).after(generateList);
+            });*/
 
         /*$("body").on( "click", "p", function() {
-                $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-            });*/
+                    $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
+                });*/
     });
 
     // $("#first-choice").change(function() {$("#second-choice").load("textdata/" + $(this).val() + ".txt");});
 
     /*
-          this.output = () => {
-          $.getJSON("./json/oscars.json", function(data) {
-              console.log(data);
-              //$("#text").html(data["text"]);
-              const result = data;
-              return result;
-          })};
-  
-      };*/
+            this.output = () => {
+            $.getJSON("./json/oscars.json", function(data) {
+                console.log(data);
+                //$("#text").html(data["text"]);
+                const result = data;
+                return result;
+            })};
+    
+        };*/
 } catch (e) {
     console.log(e);
 }
 
-function generateList() {
-    console.log("Start: ", this.options.length);
+function generateList(x) {
+    console.log(x == $selectedYear);
+    console.log("Start: " + x.options.length);
     // $selectedYear = select
     var fixing = document.evaluate(
         "//*[@id='select-year']",
@@ -321,12 +469,18 @@ function generateList() {
     console.log("xPath: ", fixing.snapshotLength);
     //console.log("The years select options size is: " + $selectedYear.length);
     /*
-      for (let i = 0; i < fixing.snapshotLength; i++) {
-          fixing.snapshotItem(i).remove();
-      }*/
-    console.log($selectedYear);
-    var select = this;
-    console.log(select);
+        for (let i = 0; i < fixing.snapshotLength; i++) {
+            fixing.snapshotItem(i).remove();
+        }*/
+    console.log("$selectedYear: " + $selectedYear);
+    // var select = x;
+    console.log("select: " + x);
+
+    if (x === $selectedYear) {
+        console.log("Hi");
+        console.log(x.options.length);
+    }
+
     $.getJSON("./json/oscars.json", function (data) {
         // select.options[0].removeAttr("selected");
         // createElement(): Option(text, value, defaultSelected, selected)
@@ -337,14 +491,15 @@ function generateList() {
             //console.log(option.value);
             //console.log(typeof option.value);
             try {
-                select.add(option); // this will fail in DOM browsers but is needed for IE
+                x.add(option); // this will fail in DOM browsers but is needed for IE
             } catch (e) {
-                select.appendChild(option);
+                x.appendChild(option);
             }
         }
     });
 
-    console.log("Finish: ", select.options.length);
+    console.log("Finish: ", x.options.length);
+    console.log(x.options.length);
     // $x("/html/body/section[2]");
 }
 
