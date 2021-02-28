@@ -2,18 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Search the Oscars results between and ">
-    <meta name="keywords" content="oscars, birkbeck, jquery, html">
-    <meta name="author" content="Salaheddin AbuEin">
-    <meta name="student-id" content="">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Search the Oscars results between and " />
+    <meta name="keywords" content="oscars, birkbeck, jquery, html" />
+    <meta name="author" content="Salaheddin AbuEin" />
+    <meta name="student-id" content="" />
     <title>Search the Oscars&#33; &raquo; 1960 - 2010</title>
     <!--Adding script inside HTML must be with <![CDATA[ xxx ]]>-->
     <!--defer => This Boolean attribute is set to indicate to a browser that the script
         is meant to be executed after the document has been parsed, but before firing DOMContentLoaded.-->
-    
+
     <!--<script type="text/javascript" src="./code/jquery.min.js"></script>-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="code/oscars.js"></script>
@@ -23,14 +23,20 @@
         body {
             /* padding-left: 25px;
             padding-right: 25px; */
-            background-color: white;
+            background-color: #e2e2e2;
             color: black;
             font-family: sans-serif;
             font-size: 12px;
+            margin: auto;
+            padding: 30px;
+            width: 700px;
             margin: 2px;
-            padding: 2px;
-            width: 800px;
-            margin: 2px auto;
+            align-items: center;
+        }
+
+        div.clear-results {
+            height: 10em;
+            position: relative;
         }
 
         .enable-black {
@@ -53,7 +59,7 @@
         }
 
         input[type="text"]:enabled {
-            background: #ffff00;
+            background: #fff;
         }
 
         table {
@@ -71,23 +77,24 @@
         }
 
         tr:nth-child(even) {
-            background-color: #f2f2f2
+            background-color: #f2f2f2;
         }
 
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #000;
+            color: #fff;
         }
+
         tr:hover {
             background-color: #ddd;
         }
+
         caption {
             padding: 8px;
+            font-size: 10px;
             caption-side: top;
         }
     </style>
-
-
 </head>
 
 <body>
@@ -95,23 +102,32 @@
     <header>
         <nav>
             <ul>
-                <li><a href="https://htmlpreview.github.io/?https://github.com/sabuein/oscars/blob/main/index.html" title="Reload this page">This page</a></li>
+                <li>
+                    <a href="https://sabuein.github.io/oscars/" title="Reload this page">This page</a>
+                </li>
                 <!--Note: When using target, consider adding rel="noreferrer" to avoid exploitation of the window.opener API.
                     Note: Linking to another page using target="_blank" will run the new page on the same process as your page.
                     If the new page is executing expensive JS, your page's performance may suffer. To avoid this use rel="noopener".-->
-                <li><a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/cw1-2021.html"
+                <li>
+                    <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/cw1-2021.html"
                         title="Coursework for Internet and Web Technologies module 2020-21" target="_blank"
-                        rel="noopener noreferrer">Homework 1</a></li>
-                <li><a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/oscars.json"
+                        rel="noopener noreferrer">Homework 1</a>
+                </li>
+                <li>
+                    <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/oscars.json"
                         title="The JSON document we will be working with" target="_blank"
                         rel="noopener noreferrer">JSON</a>
                     <ol>
                         <strong>Resources:</strong>
-                        <li><a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/client/client.html"
+                        <li>
+                            <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/client/client.html"
                                 title="Techniques discussed in the Client-side processing part of the course"
-                                target="_blank" rel="noopener noreferrer">Client-Side Processing</a></li>
-                        <li><a href="https://api.jquery.com/" title="jQuery API Documentation" target="_blank"
-                                rel="noopener noreferrer">jQuery API</a></li>
+                                target="_blank" rel="noopener noreferrer">Client-Side Processing</a>
+                        </li>
+                        <li>
+                            <a href="https://api.jquery.com/" title="jQuery API Documentation" target="_blank"
+                                rel="noopener noreferrer">jQuery API</a>
+                        </li>
                     </ol>
                 </li>
             </ul>
@@ -122,82 +138,73 @@
     </header>
 
     <!--Search section-->
-    <section class="search-section">
-        <h2>Search...</h2>
-        <article>
-            <header>
-                <h1>Choose search criteria:</h1>
-            </header>
-            <form id="search-form">
-                <label for="year">Year:</label>
-                <input id="year" name="year" type="text"><br />
-                <label for="category">Category:</label>
-                <input id="category" name="category" type="text"><br />
-                <label for="nominee">Nominee:</label>
-                <input id="nominee" name="nominee" type="text"><br />
-                <label for="info">Info:</label>
-                <input id="info" name="info" type="text"><br />
-                <!--The input value can appear in either the Nominee or Info elements.
+    <section id="search-section">
+        <header>
+            <h1>Choose search criteria:</h1>
+        </header>
+        <form id="search-form">
+            <label for="year">Year:</label>
+            <input id="year" name="year" type="text" /><br />
+            <label for="category">Category:</label>
+            <input id="category" name="category" type="text" /><br />
+            <label for="nominee">Nominee:</label>
+            <input id="nominee" name="nominee" type="text" /><br />
+            <label for="info">Info:</label>
+            <input id="info" name="info" type="text" /><br />
+            <!--The input value can appear in either the Nominee or Info elements.
                     If a user enters a value in this box, 
                     they should not enter a value in either the nominee or info boxes; 
                     if they do, an error should be produced, warning them of this.-->
-                <label for="nominee-info">Nominee/info:</label>
-                <input id="nominee-info" name="nominee-info" type="text"><br />
-                <!--The user is able to specify that they want all nominations, only those that won, or only those that did not win.
+            <label for="nominee-info">Nominee/info:</label>
+            <input id="nominee-info" name="nominee-info" type="text" /><br />
+            <!--The user is able to specify that they want all nominations, only those that won, or only those that did not win.
                 This is probably best specified using a select element.-->
-                <div>
-                    <input type="radio" name="feature-one" id="all-nominations" value="all-nominations">
-                    <label for="all-nominations">All-nominations</label>
-                    <input type="radio" name="feature-one" id="those-who-won" value="those-who-won">
-                    <label for="those-who-won">Only those that won</label>
-                    <input type="radio" name="feature-one" id="did-not-win" value="did-not-win">
-                    <label for="did-not-win">Only those that did not win</label>
-                </div>
-                <!--There should be a select element for the user to choose the exact year value, e.g., "2010 (83rd)".
+            <div>
+                <input type="radio" name="feature-one" id="all-nominations" value="all-nominations" />
+                <label for="all-nominations">All-nominations</label>
+                <input type="radio" name="feature-one" id="those-who-won" value="those-who-won" />
+                <label for="those-who-won">Only those that won</label>
+                <input type="radio" name="feature-one" id="did-not-win" value="did-not-win" />
+                <label for="did-not-win">Only those that did not win</label>
+            </div>
+            <!--There should be a select element for the user to choose the exact year value, e.g., "2010 (83rd)".
                     The options for this element should be obtained from the JSON file programmatically.
                     The first option should be "None", corresponding to no selection having being made,
                     and each year value in the file should appear only once in the option list.
                     If the user enters both a value in the text box for year (as in 3 above) and selects an option other than "None" here,
                     an error should be produced, stating that only one or the other can be chosen.-->
-                <label for="select-year">Select a year:</label>
-                <select id="select-year" name="select-year">
-                    <option value="none" selected>None</option>
-                </select>
-                <!--Action buttons-->
-                <div>
-                    <input type="submit" id="search-all-one" value="Search&#35;1">
-                    <input type="submit" id="search-all-two" value="Search&#35;2">
-                    <!--<input type="submit" id="clear-all" value="Clear">-->
-                    <input type="button" id="clear-all" value="Clear" title="Clear the form and the results table findings with JS!">
-                    <input type="reset" value="Reset" title="The old school form reset button!">
-                </div>
-            </form>
-            <aside>
-                <p>Re-Run...</p>
-            </aside>
-            <footer>
-                <p>Source: https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/oscars.json</p>
-            </footer>
-        </article>
-
-        <!--Section => side informations-->
-        <aside>
-            <p><strong>Salaheddin AbuEin</strong></p>
-        </aside>
+            <label for="select-year">Select a year:</label>
+            <select id="select-year" name="select-year">
+                <option value="none" selected>None</option>
+            </select>
+            <!--Action buttons-->
+            <div>
+                <input type="submit" id="search-all-one" value="Search&#35;1" />
+                <input type="submit" id="search-all-two" value="Search&#35;2" />
+                <!--<input type="submit" id="clear-all" value="Clear">-->
+                <input type="button" id="clear-all" value="Clear"
+                    title="Clear the form and the results table findings with JS!" />
+                <input type="reset" value="Reset" title="The old school form reset button!" />
+            </div>
+        </form>
     </section>
 
-    <section id="results-section"><!--Some magic happens here!--></section>
+    <section id="results-section">
+        <!--Some magic happens here!-->
+    </section>
 
     <!--Page footer-->
     <footer>
         <address>
-            Code written by <a href="http://titan.dcs.bbk.ac.uk/~sabuei01" title="Salaheddin AbuEin&apos;s Home Page"
-                target="_blank" rel="noopener noreferrer">Salaheddin AbuEin</a>
+            Code written by
+            <a href="http://titan.dcs.bbk.ac.uk/~sabuei01" title="Salaheddin AbuEin's Home Page" target="_blank"
+                rel="noopener noreferrer">Salaheddin AbuEin</a>
             <!--Line breaks are also white space characters-->
-            and made possible with <a href="https://www.dcs.bbk.ac.uk/~ptw/" title="Peter Wood&apos;s Home Page"
-                target="_blank" rel="noopener noreferrer">Peter Wood&apos;s</a> support &amp; guidance.
+            and made possible with
+            <a href="https://www.dcs.bbk.ac.uk/~ptw/" title="Peter Wood's Home Page" target="_blank"
+                rel="noopener noreferrer">Peter Wood&apos;s</a>
+            support &amp; guidance.
         </address>
-
     </footer>
 </body>
 

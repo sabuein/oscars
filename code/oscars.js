@@ -24,14 +24,14 @@ function autoYallah(times) {
         generateTableOne();
         generateTableTwo();
         i++;
-      } while (i < times);
-      
-      finishThem();
+    } while (i < times);
 
-      /* A bug is here!
-      This needs enhancment;
-      if automated table resutls were generated using autoYallah(times) method; then, the results will stay displayed.
-      */
+    finishThem();
+
+    /* A bug is here!
+        This needs enhancment;
+        if automated table resutls were generated using autoYallah(times) method; then, the results will stay displayed.
+        */
 }
 
 function hasTable() {
@@ -41,21 +41,20 @@ function hasTable() {
 }
 
 function notPossible() {
-  window.alert("Hello World!");
+    window.alert("Hello World!");
 }
 
 function darkMode() {
-
     var x = document.body.classList;
 
     console.log("The current body class is: ", x.value);
 
     /*if (typeof x != "undefined") {
-        alert("Hi");
-    }*/
+          alert("Hi");
+      }*/
     /*if (x) {
-        alert("Hi 2");
-    }*/
+          alert("Hi 2");
+      }*/
     if (x.value == "") document.body.classList.toggle("enable-black");
     else document.body.removeAttribute("class");
 }
@@ -64,33 +63,46 @@ function finishThem() {
     /** See also: https://developer.mozilla.org/en-US/docs/Web/API/XPathResult/snapshotItem */
     // I have tried to automate the generation of tables, therefore; discover I need to use xPath in order to deep remove tables
     var tables;
-    tables = document.evaluate("//*[@id='results-table']", document.body, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    tables = document.evaluate(
+        "//*[@id='results-table']",
+        document.body,
+        null,
+        XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+        null
+    );
     console.log(tables);
     /*table = tables.iterateNext();
-    while (table) {
-        table.remove();
-        tables.text = "";
-        table = tables.iterateNext();
-        
-    }*/
-    
+      while (table) {
+          table.remove();
+          tables.text = "";
+          table = tables.iterateNext();
+          
+      }*/
+
     for (let i = 0; i < tables.snapshotLength; i++) {
         tables.snapshotItem(i).remove();
     }
     console.log(tables);
-    
+
     // Clearing the form items
     $("#search-form").find("input[type=text]").val("");
     // $("#search-form").find("input[type='radio'], select").removeAttr("checked").removeAttr("selected");
-    /*if ($results.hasChildNodes()) {
-        $results.removeChild($results.childNodes[0]);
-    }*/
 
     console.log("Everything has cleard!");
+    console.log($results.hasChildNodes());
+
+    // Write into the results section if clearing has happen
+    if ($results.innerText == "") {
+        var div = document.createElement("div");
+        div.setAttribute("id", "clear-results");
+        div.innerHTML = "<h2>Everything has cleard!</h2>";
+        $results.appendChild(div);
+    }
 }
 
 function generateTableOne() {
-    if (!(hasTable())) {
+    if (!hasTable()) {
+        $results.innerHTML = "";
         var table, rowX, title, titles, start, end, time, caption;
         start = new Date().getTime();
         table = document.createElement("table");
@@ -104,7 +116,6 @@ function generateTableOne() {
         }
         table.createTBody();
         $.getJSON("./json/oscars.json", function (data) {
-            
             for (let i = 0; i < data.length; i++) {
                 var row = table.tBodies[0].insertRow();
                 for (const [key, value] of Object.entries(data[i])) {
@@ -114,17 +125,23 @@ function generateTableOne() {
             }
             caption = table.createCaption();
             end = new Date().getTime();
-            // divide the time value by 1000 to get seconds About 3,690 results (0.36 seconds) 
+            // divide the time value by 1000 to get seconds About 3,690 results (0.36 seconds)
             time = (end - start) / 1000;
-            caption.innerHTML = "About " + data.length + " results (" + time + " seconds)";
+            caption.innerHTML =
+                "About " + data.length + " results (" + time + " seconds)";
             console.log(caption.innerHTML);
             $results.appendChild(table);
         });
-    } else {alert("Kindly clear the current results table in order to regenerate new one!");}
+    } else {
+        alert(
+            "Kindly clear the current results table in order to regenerate new one!"
+        );
+    }
 }
 
 function generateTableTwo() {
-    if (!(hasTable())) {
+    if (!hasTable()) {
+        $results.innerHTML = "";
         var table, rowX, title, titles, start, end, time, caption;
         start = new Date().getTime();
         table = document.createElement("table");
@@ -135,7 +152,6 @@ function generateTableTwo() {
             title = document.createElement("th");
             title.appendChild(document.createTextNode(titles[i]));
             rowX.appendChild(title);
-
         }
         table.createTBody();
 
@@ -163,17 +179,19 @@ function generateTableTwo() {
             }
             caption = table.createCaption();
             end = new Date().getTime();
-            // divide the time value by 1000 to get seconds About 3,690 results (0.36 seconds) 
+            // divide the time value by 1000 to get seconds About 3,690 results (0.36 seconds)
             time = (end - start) / 1000;
-            caption.innerHTML = "About " + data.length + " results (" + time +" seconds)";
+            caption.innerHTML =
+                "About " + data.length + " results (" + time + " seconds)";
             console.log(caption.innerHTML);
             $results.appendChild(table);
-    
-      });
-
-    } else {alert("Kindly clear the current results table in order to regenerate new one!");}
-
-};
+        });
+    } else {
+        alert(
+            "Kindly clear the current results table in order to regenerate new one!"
+        );
+    }
+}
 
 /*
 // with DOM
@@ -206,18 +224,17 @@ try {
 // with jQuery
 // $(window).load(function() {});   >>> should be changed to >>>    $(window).on('load', function (e) {})
 try {
-    
     $(window).on("load", function () {
-    // fired after whole content is loaded like page contain images,css etc
-    
-    //$(document).on("ready", function () {
-    // jQuery event that is fired when DOM is loaded, so it’s fired when the document structure is ready
+        // fired after whole content is loaded like page contain images,css etc
+
+        //$(document).on("ready", function () {
+        // jQuery event that is fired when DOM is loaded, so it’s fired when the document structure is ready
         /*$.getJSON("./json/oscars.json", function (data) {
-            console.log(data);
-            //$("#text").html(data["text"]);
-            const result = data;
-            return result;
-        });*/
+                console.log(data);
+                //$("#text").html(data["text"]);
+                const result = data;
+                return result;
+            });*/
 
         $results = document.getElementById("results-section");
         $table = document.getElementById("results-table");
@@ -229,15 +246,19 @@ try {
         console.log($formElem);
 
         // submit handler
-        $formElem.addEventListener("submit", (e) => {
-            // on form submission, prevent default
-            e.preventDefault();
-            console.log($formElem);
-            
-            // construct a FormData object, which fires the formdata event
-            new FormData($formElem);
-        }, false);
-        
+        $formElem.addEventListener(
+            "submit",
+            (e) => {
+                // on form submission, prevent default
+                e.preventDefault();
+                console.log($formElem);
+
+                // construct a FormData object, which fires the formdata event
+                new FormData($formElem);
+            },
+            false
+        );
+
         // formdata handler to retrieve data
         $formElem.addEventListener("formdata", (e) => {
             console.log("formdata fired");
@@ -248,8 +269,8 @@ try {
             }
             // submit the data via XHR
             /*var request = new XMLHttpRequest();
-            request.open("POST", "/formHandler");
-            request.send(data);*/
+                  request.open("POST", "/formHandler");
+                  request.send(data);*/
         });
 
         $("#toggle-dark-mode").on("click", darkMode);
@@ -258,43 +279,51 @@ try {
         $("#search-all-one").on("click", generateTableOne);
         $("#search-all-two").on("click", generateTableTwo);
         //$("form").on("click", "select", function() {
-        $selectedYear.addEventListener("click", generateList);/* {
+        $selectedYear.addEventListener(
+            "click",
+            generateList
+        ); /* {
             $(this).empty();
             $(this).after(generateList);
         });*/
 
         /*$("body").on( "click", "p", function() {
-            $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-        });*/
+                $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
+            });*/
     });
 
-        // $("#first-choice").change(function() {$("#second-choice").load("textdata/" + $(this).val() + ".txt");}); 
+    // $("#first-choice").change(function() {$("#second-choice").load("textdata/" + $(this).val() + ".txt");});
 
-  /*
-        this.output = () => {
-        $.getJSON("./json/oscars.json", function(data) {
-            console.log(data);
-            //$("#text").html(data["text"]);
-            const result = data;
-            return result;
-        })};
-
-    };*/
+    /*
+          this.output = () => {
+          $.getJSON("./json/oscars.json", function(data) {
+              console.log(data);
+              //$("#text").html(data["text"]);
+              const result = data;
+              return result;
+          })};
+  
+      };*/
 } catch (e) {
-  console.log(e);
+    console.log(e);
 }
 
 function generateList() {
-
     console.log("Start: ", this.options.length);
     // $selectedYear = select
-    var fixing = document.evaluate("//*[@id='select-year']", document.body, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    var fixing = document.evaluate(
+        "//*[@id='select-year']",
+        document.body,
+        null,
+        XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+        null
+    );
     console.log("xPath: ", fixing.snapshotLength);
     //console.log("The years select options size is: " + $selectedYear.length);
     /*
-    for (let i = 0; i < fixing.snapshotLength; i++) {
-        fixing.snapshotItem(i).remove();
-    }*/
+      for (let i = 0; i < fixing.snapshotLength; i++) {
+          fixing.snapshotItem(i).remove();
+      }*/
     console.log($selectedYear);
     var select = this;
     console.log(select);
@@ -303,13 +332,15 @@ function generateList() {
         // createElement(): Option(text, value, defaultSelected, selected)
         for (let i = 0; i < data.length; i++) {
             var option = document.createElement("option");
-            option.text = data[i].Year; // assumes option string and value are the same 
+            option.text = data[i].Year; // assumes option string and value are the same
             option.value = data[i].Year;
             //console.log(option.value);
             //console.log(typeof option.value);
             try {
-                select.add(option);  // this will fail in DOM browsers but is needed for IE
-            } catch(e) {select.appendChild(option);}
+                select.add(option); // this will fail in DOM browsers but is needed for IE
+            } catch (e) {
+                select.appendChild(option);
+            }
         }
     });
 
@@ -317,11 +348,8 @@ function generateList() {
     // $x("/html/body/section[2]");
 }
 
-
-
-
-    // Dynamically generating select options once the user change <option value="none">None</option>
-    // document.getElementById("orange").selected = "true";
+// Dynamically generating select options once the user change <option value="none">None</option>
+// document.getElementById("orange").selected = "true";
 
 //This one works
 function getData() {
@@ -340,8 +368,6 @@ function getData() {
         //data = flow;
     };
 }
-
-
 
 // $('#addressCountry').change (
 //     function () {
