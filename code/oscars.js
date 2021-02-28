@@ -17,12 +17,21 @@ function search() {
 }
 
 function autoYallah(times) {
+    // Automating the process of fetching results using the two methods
+    // while seeing notes on the console
     let i = 0;
     do {
         generateTableOne();
         generateTableTwo();
         i++;
       } while (i < times);
+      
+      finishThem();
+
+      /* A bug is here!
+      This needs enhancment;
+      if automated table resutls were generated using autoYallah(times) method; then, the results will stay displayed.
+      */
 }
 
 function hasTable() {
@@ -51,18 +60,33 @@ function darkMode() {
     else document.body.removeAttribute("class");
 }
 
-function clearAll() {
-    var theTable, tables;
-    tables = document.evaluate(".//*[@id='results-table']", document.body, null, XPathResult.ANY_UNORDERED_NODE_TYPE, null);
+function finishThem() {
+    /** See also: https://developer.mozilla.org/en-US/docs/Web/API/XPathResult/snapshotItem */
+    // I have tried to automate the generation of tables, therefore; discover I need to use xPath in order to deep remove tables
+    var tables;
+    tables = document.evaluate("//*[@id='results-table']", document.body, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     console.log(tables);
-    theTable = document.getElementById("results-table");
-    theTable.remove();
-    console.log("Everything has cleard!");
+    /*table = tables.iterateNext();
+    while (table) {
+        table.remove();
+        tables.text = "";
+        table = tables.iterateNext();
+        
+    }*/
+    
+    for (let i = 0; i < tables.snapshotLength; i++) {
+        tables.snapshotItem(i).remove();
+    }
+    console.log(tables);
+    
+    // Clearing the form items
     $("#search-form").find("input[type=text]").val("");
     // $("#search-form").find("input[type='radio'], select").removeAttr("checked").removeAttr("selected");
     /*if ($results.hasChildNodes()) {
         $results.removeChild($results.childNodes[0]);
     }*/
+
+    console.log("Everything has cleard!");
 }
 
 function generateTableOne() {
@@ -163,7 +187,7 @@ try {
         
         document.getElementById("toggle-dark-mode").onclick = darkMode;
         document.getElementById("marhaba").onclick = notPossible;
-        document.getElementById("clear-all").onclick = clearAll;
+        document.getElementById("clear-all").onclick = finishThem;
         document.getElementById("search-all-one").onclick = () => {
             const x = new getData();
             console.log(x);
@@ -230,7 +254,7 @@ try {
 
         $("#toggle-dark-mode").on("click", darkMode);
         $("#marhaba").on("click", notPossible);
-        $("#clear-all").on("click", clearAll);
+        $("#clear-all").on("click", finishThem);
         $("#search-all-one").on("click", generateTableOne);
         $("#search-all-two").on("click", generateTableTwo);
         //$("form").on("click", "select", function() {
@@ -261,8 +285,16 @@ try {
 }
 
 function generateList() {
+
+    console.log("Start: ", this.options.length);
+    // $selectedYear = select
+    var fixing = document.evaluate("//*[@id='select-year']", document.body, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    console.log("xPath: ", fixing.snapshotLength);
     //console.log("The years select options size is: " + $selectedYear.length);
-    console.log(this.options.length);
+    /*
+    for (let i = 0; i < fixing.snapshotLength; i++) {
+        fixing.snapshotItem(i).remove();
+    }*/
     console.log($selectedYear);
     var select = this;
     console.log(select);
@@ -281,7 +313,7 @@ function generateList() {
         }
     });
 
-    console.log(select.options.length);
+    console.log("Finish: ", select.options.length);
     // $x("/html/body/section[2]");
 }
 
@@ -293,20 +325,20 @@ function generateList() {
 
 //This one works
 function getData() {
-  let jsonURL, request;
-  jsonURL = "https://sabuein.github.io/oscars/json/oscars.json";
-  request = new XMLHttpRequest();
-  request.open("GET", jsonURL);
-  request.responseType = "json";
-  request.send();
-  request.onload = function () {
-    //const flow = request.response;
-    var output = JSON.parse(request.response);
-    console.log(output);
-    // console.log(flow.length);
-    // console.log(theTable.domContentLoadedEventEnd - theTable.domContentLoadedEventStart);
-    //data = flow;
-  };
+    let jsonURL, request;
+    jsonURL = "https://sabuein.github.io/oscars/json/oscars.json";
+    request = new XMLHttpRequest();
+    request.open("GET", jsonURL);
+    request.responseType = "json";
+    request.send();
+    request.onload = function () {
+        //const flow = request.response;
+        var output = JSON.parse(request.response);
+        console.log(output);
+        // console.log(flow.length);
+        // console.log(theTable.domContentLoadedEventEnd - theTable.domContentLoadedEventStart);
+        //data = flow;
+    };
 }
 
 
