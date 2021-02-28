@@ -83,7 +83,7 @@
         }
         caption {
             padding: 8px;
-            caption-side: bottom;
+            caption-side: top;
         }
     </style>
 
@@ -130,19 +130,19 @@
             </header>
             <form id="search-form">
                 <label for="year">Year:</label>
-                <input id="year" type="text"><br />
+                <input id="year" name="year" type="text"><br />
                 <label for="category">Category:</label>
-                <input id="category" type="text"><br />
+                <input id="category" name="category" type="text"><br />
                 <label for="nominee">Nominee:</label>
-                <input id="nominee" type="text" value="one"><br />
+                <input id="nominee" name="nominee" type="text"><br />
                 <label for="info">Info:</label>
-                <input id="info" type="text" value="Info..."><br />
+                <input id="info" name="info" type="text"><br />
                 <!--The input value can appear in either the Nominee or Info elements.
                     If a user enters a value in this box, 
                     they should not enter a value in either the nominee or info boxes; 
                     if they do, an error should be produced, warning them of this.-->
                 <label for="nominee-info">Nominee/info:</label>
-                <input id="nominee-info" type="text" value="Nominee/info..."><br />
+                <input id="nominee-info" name="nominee-info" type="text"><br />
                 <!--The user is able to specify that they want all nominations, only those that won, or only those that did not win.
                 This is probably best specified using a select element.-->
                 <div>
@@ -160,16 +160,16 @@
                     If the user enters both a value in the text box for year (as in 3 above) and selects an option other than "None" here,
                     an error should be produced, stating that only one or the other can be chosen.-->
                 <label for="select-year">Select a year:</label>
-                <select id="select-year">
-                    <option id="none" selected>None</option> <!--Pre-selected-->
+                <select id="select-year" name="select-year">
+                    <option value="none" selected>None</option>
                 </select>
                 <!--Action buttons-->
                 <div>
-                    <input type="button" id="search-all-one" value="Search&#35;1">
-                    <input type="button" id="search-all-two" value="Search&#35;2">
+                    <input type="submit" id="search-all-one" value="Search&#35;1">
+                    <input type="submit" id="search-all-two" value="Search&#35;2">
                     <!--<input type="submit" id="clear-all" value="Clear">-->
-                    <input type="button" id="clear-all" value="Clear">
-                    <input type="reset" value="Reset">
+                    <input type="button" id="clear-all" value="Clear" title="Clear the form and the results table findings with JS!">
+                    <input type="reset" value="Reset" title="The old school form reset button!">
                 </div>
             </form>
             <aside>
@@ -186,31 +186,8 @@
         </aside>
     </section>
 
-    <!--Results section-->
-    <section id="results-section">
-        <h2>
-            Show results here...
-        </h2>
-        <table id="results-table">
-            <caption>The number of results returned should be given after the table.</caption>
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Category</th>
-                    <th>Nominee</th>
-                    <th>Info</th>
-                    <th>Won?</th>
-                </tr>
-            </thead>
-        </table>
+    <section id="results-section"><!--Some magic happens here!--></section>
 
-        <!--Section => side informations-->
-        <aside>
-            <p>
-                Code written by: <strong>Salaheddin AbuEin</strong>
-            </p>
-        </aside>
-    </section>
     <!--Page footer-->
     <footer>
         <address>
