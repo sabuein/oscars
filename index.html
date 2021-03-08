@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Search the Oscars results between and " />
@@ -14,84 +14,48 @@
     <!--defer => This Boolean attribute is set to indicate to a browser that the script
         is meant to be executed after the document has been parsed, but before firing DOMContentLoaded.-->
 
-    <!--<script type="text/javascript" src="./code/jquery.min.js"></script>-->
+    <!--Adding defer attribute to make sure the body of this documents loads before applying JS-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="code/oscars.js"></script>
+    <script type="text/javascript" src="code/oscars1.js"></script>
+
+    <!--Using Google Web Fonts-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--Adding some CSS to the document-->
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #e2e2e2;
             color: #212121;
             font-family: sans-serif;
             font-size: 14px;
-            width: 100%;
-            margin: 0;
+            /*width: 100%;*/
+            /*margin: 0;*/
+            display: flex;
+            /*flex-direction: column;
+            flex-wrap: wrap;*/
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin-bottom: 20vh;
+        }
+
+        .material-icons {
+            font-size: 1em;
         }
 
         .header-container {
-            position: fixed;
-            top: 0;
-            z-index: 1;
-            width: 100%;
-            background-color: #f1f1f1;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
-        .header-container h1 {
-            text-align: center;
-        }
-
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background: #ccc;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: #0a84ff;
-            width: 0%;
-        }
-
-        .content {
-            padding: 100px 0;
-            margin: 50px auto 0 auto;
-            width: 100%;
-        }
-
-        input[type=text],
-        
-        select {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            /*display: block;*/
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type=submit] {
-            width: 100%;
-            background-color: #4e4e51;
-            color: #fff;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type=submit]:hover {
-            color: #000;
-            background-color: #b1b1b3;;
-        }
-
-        /*<div id="clear-results">*/
-        div#clear-results {
+        /*div#clear-results {
             height: 10em;
-            position: relative;
-        }
+            position: absolute;
+        }*/
 
         /*<element class="enable-black">*/
         .enable-black {
@@ -100,11 +64,11 @@
         }
 
         /* Adding an icon to external links*/
-        a[target="_blank"]::after {
+        /*a[target="_blank"]::after {
             content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
             margin: 0px 3px 0px 5px;
             filter: drop-shadow(0 0 0.75rem crimson);
-        }
+        }*/
 
         h1 {
             /*position: absolute;*/
@@ -113,15 +77,11 @@
             /*text-shadow: 0px -1px 1px black, 0px -2px 1px black, 0px -3px 1px black, 0px -4px 1px black, 0px -5px 1px black;*/
         }
 
-        input[type="text"]:enabled {
-            background: #e7dea4;
-        }
-
         table {
+            max-width: 800px;
             border: 2px solid #555;
             border-collapse: collapse;
             font: 16px "Lucida Grande", "Helvetica", "Arial", sans-serif;
-            max-width: 100%;
         }
 
         th,
@@ -154,10 +114,12 @@
 
 <body>
     <!--Page header => Navigation menu (ul and ol) and heading text-->
-    
+
     <header>
         <div class="header-container">
             <h1>Search the Oscars&#33; &raquo; 1960 - 2010</h1>
+
+
             <nav>
                 <ul>
                     <li>
@@ -169,36 +131,145 @@
                     <li>
                         <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/cw1-2021.html"
                             title="Coursework for Internet and Web Technologies module 2020-21" target="_blank"
-                            rel="noopener noreferrer">Homework 1</a>
+                            rel="noopener noreferrer">Homework 1</a><span class="material-icons">open_in_new</span>
                     </li>
                     <li>
                         <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/oscars.json"
                             title="The JSON document we will be working with" target="_blank"
-                            rel="noopener noreferrer">JSON</a>
+                            rel="noopener noreferrer">JSON</a><span class="material-icons">open_in_new</span>
                         <ol>
                             <strong>Resources:</strong>
                             <li>
                                 <a href="https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/2021/client/client.html"
                                     title="Techniques discussed in the Client-side processing part of the course"
-                                    target="_blank" rel="noopener noreferrer">Client-Side Processing</a>
+                                    target="_blank" rel="noopener noreferrer">Client-Side Processing</a><span
+                                    class="material-icons">open_in_new</span>
                             </li>
                             <li>
                                 <a href="https://api.jquery.com/" title="jQuery API Documentation" target="_blank"
-                                    rel="noopener noreferrer">jQuery API</a>
+                                    rel="noopener noreferrer">jQuery API</a><span
+                                    class="material-icons">open_in_new</span>
                             </li>
                         </ol>
                     </li>
                 </ul>
                 <button type="button" id="toggle-dark-mode">Toggle dark mode</button>
-                <button type="button" id="marhaba">Marhaba</button>
+                <button type="button" id="clickMe">Testing</button>
+
             </nav>
-            <div class="progress-container"></div>
-            <div class="progress-bar" id="myBar"></div>
+
+
+            <!--Search section-->
+            <div id="search-section">
+                <form name="search-form" id="search-form" method="post" action="/" autocomplete="off">
+                    <div>
+                        <fieldset name="main-search" id="mainSearch">
+                            <legend>Choose search criteria: <abbr
+                                    title="Specify if you want all nominations, only those that won, or only those that did not win"
+                                    aria-labelledby="year category nominee info">*</abbr></legend>
+                            <div><label for="year">Year:</label>
+                                <input id="year" name="year" type="search" placeholder="Enter the Year" tabindex="2" />
+                                <span class="material-icons">check</span>
+                                <span class="material-icons">error</span>
+                                <small>Error Message</small>
+                            </div>
+                            <div><label for="category">Category:</label>
+                                <input id="category" name="category" type="search" placeholder="Enter the Category"
+                                    tabindex="2" />
+                                <span class="validity"></span>
+                            </div>
+                            <div><label for="nominee">Nominee:</label>
+                                <input id="nominee" name="nominee" type="search" placeholder="Enter the Nominee"
+                                    tabindex="2" />
+                                <span class="validity"></span>
+                            </div>
+                            <div><label for="info">Info:</label>
+                                <input id="info" name="info" type="search" placeholder="Enter the Info" tabindex="2" />
+                                <span class="validity"></span>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <!--The input value can appear in either the Nominee or Info elements.
+                            If a user enters a value in this box, 
+                            they should not enter a value in either the nominee or info boxes; 
+                            if they do, an error should be produced, warning them of this.-->
+
+                    <div>
+                        <!--The user is able to specify that they want all nominations, only those that won, or only those that did not win.
+                        This is probably best specified using a select element.-->
+                        <fieldset name="advanced-search" id="advanced-search">
+                            <legend>Advanced search: <abbr
+                                    title="Specify if you want all nominations, only those that won, or only those that did not win"
+                                    aria-labelledby="nomineeInfo selectWinners selectTheYear">*</abbr></legend>
+                            <!-- While only one radio button in a same-named group can be selected at a time,
+                                         and therefore only one radio button in a same-named group having the "required"
+                                         attribute suffices in making a selection a requirement -->
+
+                            <div><label for="nomineeInfo">Nominee/info:</label>
+                                <!--<textarea name="nominee-info" id="nominee-info" cols="20" rows="1"></textarea><br />-->
+                                <input name="nomineeInfo" id="nomineeInfo" type="search" /><br />
+                            </div>
+
+                            <div><input type="radio" name="selectWinners" id="all-winners" value="all-winners"
+                                    checked="true" tabindex="2" /><label for="all-winners">All-nominations</label>
+                                <input type="radio" name="selectWinners" id="only-winners" value="only-winners"
+                                    tabindex="2" /><label for="only-winners">Only those that won</label>
+                                <input type="radio" name="selectWinners" id="no-winners" value="no-winners"
+                                    tabindex="2" /><label for="no-winners">Only those that did not
+                                    win</label>
+                            </div>
+
+                            <!--There should be a select element for the user to choose the exact year value, e.g., "2010 (83rd)".
+                            The options for this element should be obtained from the JSON file programmatically.
+                            The first option should be "None", corresponding to no selection having being made,
+                            and each year value in the file should appear only once in the option list.
+                            If the user enters both a value in the text box for year (as in 3 above) and selects an option other than "None" here,
+                            an error should be produced, stating that only one or the other can be chosen.-->
+                            <div>
+
+                                <!--
+                                            datalist allows users to either choose from the specified answers, or to type in their original ones.
+                                            <label for="selectTheYear">Select a year:</label>
+                                            <input name="selectTheYear" id="selectTheYear" list="yearsList">
+                                            <datalist id="yearsList">
+                                            </datalist>
+                                        -->
+
+
+                                <label for="more-years">Select a year:</label>
+                                <select name="more-years" id="more-years">
+
+                                    <option value="none" defaultSelected="true">None</option>
+                                    <!--<option value="1">Ahmad</option>
+                                                <option value="2">Abdallah</option>-->
+                                </select>
+
+
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                    <!--Action buttons-->
+                    <div name="buttons-div" id="buttons-div">
+                        <input type="submit" id="search-all-one" value="Search&#35;1" tabindex="2" />
+                        <input type="submit" id="search-all-two" value="Search&#35;2" tabindex="2" />
+                        <!--<input type="submit" id="clear-all" value="Clear">-->
+                        <input type="button" id="clear-all" value="Everything"
+                            title="Clear the form and the results table findings with JS&#33;" tabindex="2" />
+                        <input type="button" id="table-only" value="Table Only" title="Clear results section only&#33;"
+                            tabindex="2" />
+                        <input type="reset" value="Reset" title="The old school form reset button&#33;" tabindex="2" />
+                    </div>
+                </form>
+            </div>
         </div>
+
     </header>
-    
-    <div id="content">
-        <section>
+
+    <section>
+        <div id="content">
+
             <div id="extra-stuff">
                 <form id="post-service">
                     <label for="fname">First name:</label>
@@ -211,66 +282,13 @@
                 </form>
             </div>
 
-        </section>
+    </section>
 
-        <!--Search section-->
+    <section id="results-section">
+        <!--Some magic happens here!-->
 
-        <section id="search-section">
-            <header>
-                <h1>Choose search criteria:</h1>
-            </header>
-            <form id="search-form" action="" autocomplete="off">
-                <label for="year">Year:</label>
-                <input id="year" name="year" type="text" /><br />
-                <label for="category">Category:</label>
-                <input id="category" name="category" type="text" /><br />
-                <label for="nominee">Nominee:</label>
-                <input id="nominee" name="nominee" type="text" /><br />
-                <label for="info">Info:</label>
-                <input id="info" name="info" type="text" /><br />
-                <!--The input value can appear in either the Nominee or Info elements.
-                            If a user enters a value in this box, 
-                            they should not enter a value in either the nominee or info boxes; 
-                            if they do, an error should be produced, warning them of this.-->
-                <label for="nominee-info">Nominee/info:</label>
-                <input id="nominee-info" name="nominee-info" type="text" /><br />
-                <!--The user is able to specify that they want all nominations, only those that won, or only those that did not win.
-                        This is probably best specified using a select element.-->
-                <div>
-                    <input type="radio" name="feature-one" id="all-nominations" value="all-nominations" />
-                    <label for="all-nominations">All-nominations</label>
-                    <input type="radio" name="feature-one" id="those-who-won" value="those-who-won" />
-                    <label for="those-who-won">Only those that won</label>
-                    <input type="radio" name="feature-one" id="did-not-win" value="did-not-win" />
-                    <label for="did-not-win">Only those that did not win</label>
-                </div>
-                <!--There should be a select element for the user to choose the exact year value, e.g., "2010 (83rd)".
-                            The options for this element should be obtained from the JSON file programmatically.
-                            The first option should be "None", corresponding to no selection having being made,
-                            and each year value in the file should appear only once in the option list.
-                            If the user enters both a value in the text box for year (as in 3 above) and selects an option other than "None" here,
-                            an error should be produced, stating that only one or the other can be chosen.-->
-                <label for="select-year">Select a year:</label>
-                <select id="select-year" name="select-year">
-                    <option value="none" selected>None</option>
-                </select>
-                <!--Action buttons-->
-                <div>
-                    <input type="submit" id="search-all-one" value="Search&#35;1" />
-                    <input type="submit" id="search-all-two" value="Search&#35;2" />
-                    <!--<input type="submit" id="clear-all" value="Clear">-->
-                    <input type="button" id="clear-all" value="Everything"
-                        title="Clear the form and the results table findings with JS&#33;" />
-                    <input type="button" id="table-only" value="Table Only" title="Clear results section only&#33;" />
-                    <input type="reset" value="Reset" title="The old school form reset button&#33;" />
-                </div>
-            </form>
-        </section>
-
-        <section id="results-section">
-            <!--Some magic happens here!-->
-        </section>
-    </div>
+        </div>
+    </section>
 
 
 
@@ -283,8 +301,9 @@
             <!--Line breaks are also white space characters-->
             and made possible with
             <a href="https://www.dcs.bbk.ac.uk/~ptw/" title="Peter Wood's Home Page" target="_blank"
-                rel="noopener noreferrer">Peter Wood&apos;s</a>
-            support &amp; guidance. And of course, <a href="https://www.google.co.uk/" title="Google!" target="_blank">Mr. Google</a>.
+                rel="noopener noreferrer">Peter Wood&apos;s</a><span class="material-icons">open_in_new</span>
+            support &amp; guidance. And of course, <a href="https://www.google.co.uk/" title="Google!"
+                target="_blank">Mr. Google</a><span class="material-icons">open_in_new</span>.
         </address>
     </footer>
 </body>

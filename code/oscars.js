@@ -3,6 +3,77 @@
  * I confirm that this coursework submission is entirely my own work, except where explicitly stated otherwise.
  */
 
+const testingAgain = () => {
+    document.response.formData().then(function(formdata) {
+        // do something with your formdata
+        console.log(formdata);
+    });
+};
+
+/*
+Hide all the input elements within a form.
+$( myForm.elements ).hide();
+
+Set the background color of the page to black.
+$( document.body ).css( "background", "black" );
+
+jQuery(function( $ ) {
+  // Your code using failsafe $ alias here...
+});
+
+
+
+// Typical usage involving another promise, using jQuery.when.
+
+$.when(
+  $.getJSON( "ajax/test.json" ),
+  $.ready
+).done(function( data ) { //or .ready
+  // Document is ready.
+  // Value of test.json is passed as `data`.
+});
+
+$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?", {
+        tags: "sunset",
+        tagmode: "any",
+        format: "json"
+    }, function(data) {
+        $.each(data.items, function(i, item) {
+            var img = $("<img />");
+            img.attr('width', '200px');
+            img.attr('height', '150px');
+            img.attr("src", item.media.m).appendTo("#dvImages");
+            if (i == 3) return false;
+        });
+    });
+});?
+
+$.getJSON(flickrAPI, {
+    tags: 'Ocean',
+    tagmode: 'any',
+    format: 'json'
+   },
+   successFunction);
+}
+
+// JavaScript's Map https://262.ecma-international.org/6.0/#sec-array.prototype.map
+array.map(function(elem, index, array) {
+      ...
+}, thisArg);
+
+// JavaScript's Filter  https://262.ecma-international.org/6.0/#sec-array.prototype.filter
+array.filter(function(elem, index, array) {
+      ...
+}, thisArg);
+
+// JavaScript's Reduce  https://262.ecma-international.org/6.0/#sec-array.prototype.reduce
+
+array.reduce(function(previousValue, currentValue, currentIndex, array) {
+      ...
+}, initialValue);
+
+
+*/
 
 /* Classes
 
@@ -57,8 +128,9 @@ function bismAllah(data) {
 
     // Printing submit values in pairs to the console
     for (var pair of data.entries()) {
-        console.log(">>> " + pair[0] + ": " + pair[1]);
-    }
+        // With nice added style to the console output
+        console.log(`%c${pair[0]} = %c${pair[1]}`, "color: gray;", "font-weight: bold;");
+    };
 
     // submit the data via XHR
     //var request = new XMLHttpRequest();
@@ -232,6 +304,8 @@ function generateTableOne() {
                     cell.appendChild(document.createTextNode(value));
                 }
             }
+
+
             caption = table.createCaption();
             end = new Date().getTime();
             // divide the time value by 1000 to get seconds About 3,690 results (0.36 seconds)
@@ -263,7 +337,7 @@ function generateTableTwo() {
         }
         table.createTBody();
 
-        $.getJSON("./json/oscars.json", function (data) {
+        var jqxhr = $.getJSON("./json/oscars.json", function (data) {
             //$("#text").html(data["text"]);
             for (let i = 0; i < data.length; i++) {
                 // Insert a row at the end of the body of the table
@@ -293,13 +367,32 @@ function generateTableTwo() {
                 "Found " + data.length + " results (About " + time + " seconds)";
             console.log(caption.innerHTML);
             $results.appendChild(table);
+
+            // Testing
+            const testing = data.forEach(function(item) {
+                console.log(item.Year);
+            });
+
+        })
+        .done(function() {
+            console.log( "second success" );
+        })
+        .fail(function() {
+            console.log( "error" );
+        })
+        .always(function() {
+            console.log( "complete" );
         });
-    } else {
-        alert(
-            "Kindly clear the current results table in order to regenerate new one!"
-        );
+         
+        // Perform other work here ...
+         
+        // Set another completion function for the request above
+        jqxhr.always(function() {
+            console.log("second complete");
+        });
     }
-}
+    else {alert("Kindly clear the current results table in order to regenerate new one!");}
+};
 
 /*
 // with DOM
@@ -418,13 +511,28 @@ try {
         $("#toggle-dark-mode").on("click", darkMode);
         $("#marhaba").on("click", notPossible);
         $("#clear-all").on("click", finishThem);
-        $("#search-all-one").on("click", generateTableOne);
-        $("#search-all-two").on("click", generateTableTwo);
+        $("#search-all-one").on("click", function() {
+            generateTableOne;
+            $("#hide-show").css("display", "none");
+            var x = document.createElement("p");
+            x.innerHTML = `Show/hide search`;
+            $("#show-hide").append(x);
+
+        });
+        
+        $("#search-all-two").on("click", function() {
+            generateTableTwo();
+            $("#hide-show").css("display", "none");
+            var x = document.createElement("p");
+            x.innerHTML = `Show/hide search`;
+            $("#show-hide").append(x);
+        });
+        
         $("#table-only").on("click", clearTable);
         //$("form").on("click", "select", function() {
         //$(selectedYear).addEventListener("click", generateList);
 
-        $("#select-year").one("click mouseover", function (event) {
+        $("#select-year").one("click mouseover", e => {
             generateList(this);
             $(this).off(console.log("The " + generateList.type + " event happened!"));
         });
@@ -482,9 +590,14 @@ function generateList(x) {
     }
 
     $.getJSON("./json/oscars.json", function (data) {
+
+        //Using the old style For loop
+
+        // To remove an attribute from an element
         // select.options[0].removeAttr("selected");
+        // The Option element parameters
         // createElement(): Option(text, value, defaultSelected, selected)
-        for (let i = 0; i < data.length; i++) {
+        /*for (let i = 0; i < data.length; i++) {
             var option = document.createElement("option");
             option.text = data[i].Year; // assumes option string and value are the same
             option.value = data[i].Year;
@@ -495,7 +608,18 @@ function generateList(x) {
             } catch (e) {
                 x.appendChild(option);
             }
-        }
+        }*/
+        data.forEach(function(item) {
+            var option = document.createElement("option");
+            option.text = item.Year;
+            option.value = item.Year;
+            //console.log(item.Year);
+            try {
+                x.add(option); // this will fail in DOM browsers but is needed for IE
+            } catch (e) {
+                x.appendChild(option);
+            }
+        });
     });
 
     console.log("Finish: ", x.options.length);
