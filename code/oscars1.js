@@ -11,7 +11,7 @@ Thanks for introducing me to all this knoweldge, such a massive ocean.
 Sincerely,
 Salah.`);
 
-var theForm, jsonData, moreYears, results, darker, testing;
+var theForm, jsonData, moreYears, results, darker, testing, searching;
 
 try {
     $(window).on("load", function () {
@@ -22,14 +22,25 @@ try {
         console.log(`%c>>> The window has loaded sussessfully!`, "font-weight: bold; color: #f0ffff;"); //Azure
 
         moreYears = document.getElementById("more-years");
-        darker = document.getElementById("toggle-dark-mode");
+        darker = document.getElementById("toggle-it");
         theForm = document.getElementById("search-form");
-        results = document.getElementById("results-section");
+        results = document.getElementById("results");
 
 
         // The testing button
-        testing = document.getElementById("clickMe");
+        testing = document.getElementById("test-it");
         testing.addEventListener("click", checkThat);
+
+
+        // All inputs
+        searching = document.getElementsByTagName("input");
+        for (let i = 0; i < searching.length; i++) {
+            console.log(searching[i].id);
+        };
+
+        //testing.addEventListener("click", );
+
+
 
         // mouseenter event fires when a pointer enters an element.
         // focus event fires when an element has received focus
@@ -48,7 +59,7 @@ try {
         //theForm.addEventListener("blur", getBlur, true);
 
 
-        let x = filterItems(jsonData, "2007");
+        /*let x = filterItems(jsonData, "2007");*/
 
 
         // submit event fires when a form element has submitted.
@@ -199,21 +210,103 @@ the table might look as the one at: https://www.dcs.bbk.ac.uk/~ptw/teaching/IWT/
 
 function checkThat() {
     try {
-        yallahSearch(theForm, jsonData);
+        yallahSearch(searching, jsonData);
         //buildTable1(jsonData);
-        buildTable2(jsonData);
+        //buildTable2(jsonData);
 
     } catch (e) {
         console.log(`%cAn error has occured >>> %c${e.message}`, "font-weight: bold; color: #f0ffff;", ""); //Azure
     }
 }
 
-function filterItems (array, query) {
-    return Object.entries( filter(el => el.toLowerCase().includes(query.toLowerCase()) !== -1));
-};
-
 function yallahSearch(keywords, dataObjectArray) {
     let year, category, nominee, info, won;
+
+    //let query = "2010 (83rd)";
+    //let x = Object.entries(dataObjectArray);
+    //console.log("X type is:", typeof x, "and it is:", x);
+    //console.log("X length:", x.length);
+
+    //console.log("I am at getTheFile:", jsonData["1"].Category);
+
+
+    //console.log(Array.isArray(x));
+
+    /*for (let i = 0; i < dataObjectArray.length; i++) {            //This worksssssssssssss
+        console.log(dataObjectArray[i].Year);
+    };*/
+
+
+    // searching[1].name
+
+    let resultooo = dataObjectArray.filter(function (item) {
+        return (item.Year.includes(keywords["year"].value) 
+        || item.Category.includes(keywords["category"].value)
+        || item.Nominee.includes(keywords["nominee"].value)
+        || item.Info.includes(keywords["info"].value));
+    });
+
+    // year, category, nominee, info, nomineeInfo, all-winners, only-winners, no-winners
+
+
+    buildTable1(resultooo);
+
+
+
+
+
+    /*
+    const filterItems = (query) => {
+        return x.filter(el => el.toLowerCase().indexOf(x.toLowerCase()) > -1);
+    };
+
+    console.log(filterItems("2010"));
+    */
+
+    /*let y = x.filter(object => object.Category === "2010 (83rd)");
+    console.log("Y type is:", typeof y, "and it is:", y);
+
+    let objectExample = [
+        "0",
+        {
+            "Year": "2010 (83rd)",
+            "Category": "Actor -- Leading Role",
+            "Nominee": "Javier Bardem",
+            "Info": "Biutiful {'Uxbal'}",
+            "Won": "no"
+        }
+    ];
+
+    console.log("Is it equal?", objectExample == x[0]);*/
+
+    // To add an object at the first position, use Array.unshift.   cars.unshift(car);
+    // To add an object at the last position, use Array.push.       cars.push(car);
+
+    /*
+    To add an object in the middle, use Array.splice.
+    Array.splice(
+        {index where to start},
+        {how many items to remove},
+        {items to add}
+        );
+    */
+
+
+    // Get multiple items from an array that match a condition - Array.filter
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*
+    Find an object in an array by its values - Array.find
+    let car = cars.find(car => car.color === "red");
+
+    It's also possible to search for multiple values:
+    let car = cars.find(car => car.color === "red" && car.type === "cabrio");
+    */
+
+
+
     // Printing submit values in pairs to the console
     /*for (let i = 0; pair of dataObjectArray.entries()) {
         // With nice added style to the console output
@@ -240,7 +333,7 @@ function yallahSearch(keywords, dataObjectArray) {
     }
     */
 
-    for (let i = 0; i < dataObjectArray.length; i++) {
+    /*for (let i = 0; i < dataObjectArray.length; i++) {
         year = dataObjectArray[i].Year;
         category = dataObjectArray[i].Category;
         nominee = dataObjectArray[i].Nominee;
@@ -257,8 +350,10 @@ function yallahSearch(keywords, dataObjectArray) {
         }
     };
 
+    console.log("Bismillah");*/
 
-    console.log(filterItems(jsonData, keywords["year"].value));
+
+    /*console.log(filterItems(jsonData, keywords["year"].value));*/
 
     // This works
     // Object.entries(dataObjectArray).forEach(([key, value]) => console.log(`${key}: ${value}`)); // "foo: bar", "baz: 42"
@@ -277,7 +372,7 @@ function yallahSearch(keywords, dataObjectArray) {
 
     console.log(map.length);*/
 
-    console.log(keywords.elements.namedItem("year").name);
+    /*console.log(keywords.elements.namedItem("year").name);
 
     if (keywords.elements.namedItem("year")) {
         // In JavaScript, using the array bracket syntax with a String, like collection["value"] is equivalent to collection.namedItem("value").
@@ -295,7 +390,7 @@ function yallahSearch(keywords, dataObjectArray) {
     console.log("Array:", dataObjectArray, "Type:", typeof dataObjectArray);
 
     console.log(moreYears.options[moreYears.selectedIndex].text);
-    console.log(moreYears.options[moreYears.selectedIndex].value);
+    console.log(moreYears.options[moreYears.selectedIndex].value);*/
 
 }
 
@@ -315,13 +410,23 @@ function createTheList(input) {
 };
 
 function getTheFile() {
+
     $.getJSON("./json/oscars.json", function (data) {
         try {
             jsonData = data;
+
+
+
+            /*console.log("I am at getTheFile:", jsonData);
+            console.log("I am at getTheFile:", jsonData["1"].Category);
+            console.log("I am at getTheFile:", jsonData[1]);*/
+
+
+
         } catch (e) {
             console.log("Something is wrong with getTheFile();");
         }
-    })
+    });
 };
 
 function getFocus() {
@@ -352,6 +457,7 @@ function hasTable() {
 
 function buildTable1(input) {
     let table, row, cell, title, titles, start, end, caption;
+    results.removeAttribute("class");
     results.innerHTML = "";
     start = new Date().getTime();
     table = document.createElement("table");
@@ -387,11 +493,12 @@ function buildTable1(input) {
 };
 
 function buildTable2(input) {
-
     let table, rowX, title, titles, start, end, time, caption;
+
     start = new Date().getTime();
 
-    results.innerHTML = "";
+    results.removeAttribute("class");
+    results.innerHTML = ""; // <hr /> Horizantal line
     table = document.createElement("table");
     table.setAttribute("id", "results-table");
 
@@ -433,7 +540,6 @@ function buildTable2(input) {
     caption.innerHTML = "Found " + input.length + " results (About " + time + " seconds)";
     console.log(caption.innerHTML);
     results.appendChild(table);
-
 };
 
 // Command the browser to wait a number of Milliseconds.
